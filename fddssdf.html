@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Поздравляем! iPhone 17 Pro Max</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      margin: 0;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .card {
+      max-width: 400px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 48px;
+      padding: 28px 20px 20px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      position: relative;
+      z-index: 10;
+    }
+
+    .win-title {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .win-title h1 {
+      font-size: 2rem;
+      font-weight: 100;
+      letter-spacing: -0.5px;
+      color: #1a1a1a;
+      line-height: 1.2;
+    }
+
+    .win-title .sub {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #666;
+      background: #f5f5f7;
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 40px;
+      margin-top: 6px;
+      letter-spacing: 0.2px;
+    }
+
+    .phone-image {
+      display: flex;
+      justify-content: center;
+      margin: 12px 0 18px;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.08));
+    }
+
+    .phone-image img {
+      width: 100%;
+      max-width: 240px;
+      height: auto;
+      border-radius: 32px;
+      background: #fafafa;
+    }
+
+    .card-input-area {
+      background: #f5f5f7;
+      border-radius: 60px;
+      padding: 4px 20px;
+      display: flex;
+      align-items: center;
+      margin: 20px 0 14px;
+      border: 1px solid #e8e8ec;
+      transition: all 0.2s;
+    }
+
+    .card-input-area:focus-within {
+      border-color: #0077ed;
+      box-shadow: 0 0 0 3px rgba(0, 119, 237, 0.08);
+      background: #ffffff;
+    }
+
+    .card-input-area input {
+      background: transparent;
+      border: none;
+      padding: 18px 0;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #1a1a1a;
+      width: 100%;
+      outline: none;
+      letter-spacing: 0.5px;
+    }
+
+    .card-input-area input::placeholder {
+      color: #8e8e93;
+      font-weight: 300;
+      font-size: 0.95rem;
+    }
+
+    .jump-btn-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 12px 0 8px;
+    }
+
+    .jump-btn {
+      background: #0077ed;
+      border: none;
+      border-radius: 80px;
+      padding: 18px 32px;
+      font-weight: 100;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      color: #ffffff;
+      box-shadow: 0 8px 0 #005bb5, 0 10px 24px rgba(0, 119, 237, 0.25);
+      cursor: pointer;
+      transition: 0.08s linear;
+      animation: jump 1s infinite alternate ease-in-out;
+      transform: translateY(0);
+      width: 100%;
+      max-width: 260px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    @keyframes jump {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(-12px) scale(1.02); }
+    }
+
+    .jump-btn:active {
+      transform: translateY(6px) scale(0.98);
+      box-shadow: 0 2px 0 #005bb5;
+      animation: none;
+    }
+
+    .hint-text {
+      color: #8e8e93;
+      font-size: 0.7rem;
+      font-weight: 300;
+      text-align: center;
+      margin-top: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    .footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #f0f0f2;
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: #8e8e93;
+      letter-spacing: 0.5px;
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .overlay-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .overlay-panel.active {
+      display: flex;
+    }
+
+    .panel-box {
+      background: #ffffff;
+      max-width: 360px;
+      width: 100%;
+      padding: 32px 24px 28px;
+      border-radius: 48px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      text-align: center;
+      color: #1a1a1a;
+      position: relative;
+    }
+
+    .panel-box h2 {
+      font-size: 1.8rem;
+      font-weight: 100;
+      letter-spacing: -0.3px;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .panel-box p {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #3a3a3a;
+      margin: 16px 0;
+      line-height: 1.5;
+    }
+
+    .dual-btn {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin: 24px 0 8px;
+    }
+
+    .dual-btn button {
+      flex: 1;
+      padding: 14px 10px;
+      border-radius: 60px;
+      border: none;
+      font-weight: 400;
+      font-size: 1.1rem;
+      background: #f5f5f7;
+      color: #1a1a1a;
+      transition: 0.15s;
+      cursor: pointer;
+      box-shadow: 0 2px 0 #d0d0d5;
+    }
+
+    .dual-btn .btn-yes {
+      background: #0077ed;
+      color: #fff;
+      box-shadow: 0 4px 0 #005bb5;
+      font-weight: 400;
+    }
+
+    .dual-btn .btn-no {
+      background: #f0f0f2;
+      color: #3a3a3a;
+      box-shadow: 0 2px 0 #c0c0c5;
+    }
+
+    .dual-btn button:active {
+      transform: translateY(4px);
+      box-shadow: 0 0px 0 #005bb5;
+    }
+
+    .spinner {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 5px solid #e8e8ec;
+      border-top: 5px solid #0077ed;
+      animation: spin 1s linear infinite;
+      margin: 20px auto 12px;
+    }
+
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    .checkmark-svg {
+      width: 72px;
+      height: 72px;
+      margin: 8px auto 4px;
+      display: block;
+    }
+
+    .final-text {
+      font-size: 0.95rem;
+      font-weight: 400;
+      background: #f8f8fa;
+      padding: 16px 14px;
+      border-radius: 32px;
+      border-left: 4px solid #0077ed;
+      color: #1a1a1a;
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .final-text .warning {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #f0f0f2;
+      font-size: 0.85rem;
+      color: #e04e4e;
+      font-weight: 400;
+    }
+
+    .hidden { display: none; }
+
+    #resetBtn {
+      margin-top: 20px;
+      background: #f0f0f2;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 60px;
+      color: #1a1a1a;
+      font-weight: 400;
+      font-size: 1rem;
+      box-shadow: 0 2px 0 #c0c0c5;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+
+    #resetBtn:active {
+      transform: translateY(2px);
+      box-shadow: 0 0px 0 #c0c0c5;
+    }
+
+    @media (max-width: 420px) {
+      .card { padding: 20px 16px; }
+      .win-title h1 { font-size: 1.7rem; }
+      .jump-btn { font-size: 1.7rem; padding: 16px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Основная карточка -->
+  <div class="card" id="mainCard">
+    <div class="win-title">
+      <h1>ВЫ ВЫИГРАЛИ</h1>
+      <span class="sub">Apple iPhone 17 Pro Max 2048 ГБ</span>
+    </div>
+    <div class="phone-image">
+      <img src="https://c.dns-shop.ru/thumb/st1/fit/500/500/36eb93d438e0fcaa7a53d61d2e6aef62/bde6fa42703171e6bb6c2c1bd235fec457b6c328ee00729c65b4b2ca9d10fd5a.jpg.webp" alt="iPhone 17 Pro Max" loading="lazy">
+    </div>
+
+    <div class="card-input-area">
+      <input type="text" id="cardInput" placeholder="Номер карты" inputmode="numeric" pattern="[0-9]*" maxlength="19">
+    </div>
+
+    <div class="jump-btn-wrapper">
+      <button class="jump-btn" id="jumpWinBtn">Выиграть</button>
+    </div>
+    <p class="hint-text">Введите номер карты и нажмите «Выиграть»</p>
+
+    <div class="footer">
+      ООО "Случайный приз" &copy; 2026
+    </div>
+  </div>
+
+  <!-- Панель подтверждения -->
+  <div class="overlay-panel" id="confirmPanel">
+    <div class="panel-box">
+      <h2>Подтверждение</h2>
+      <p style="font-size: 1.1rem;">Вы уверены, что это ваша карта?</p>
+      <div style="background: #f5f5f7; padding: 8px; border-radius: 30px; margin: 12px 0; font-size: 1.2rem; letter-spacing: 2px; color: #1a1a1a; font-weight: 400;" id="confirmCardNumber">****</div>
+      <div class="dual-btn">
+        <button class="btn-yes" id="confirmYes">Да</button>
+        <button class="btn-no" id="confirmNo">Нет</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Панель банка / финал -->
+  <div class="overlay-panel" id="bankPanel">
+    <div class="panel-box" id="bankPanelBox">
+      <div id="bankSpinnerView">
+        <div class="spinner"></div>
+        <p style="font-weight: 400; font-size: 1.2rem; margin: 12px 0 4px; color: #1a1a1a;">Соединение с вашим банком...</p>
+        <p style="color: #6e6e73; font-size: 0.9rem; font-weight: 300;">(это займёт мгновение)</p>
+      </div>
+      <div id="bankFinalView" class="hidden">
+        <svg class="checkmark-svg" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="25" fill="none" stroke="#34c759" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          <path fill="none" stroke="#34c759" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+        </svg>
+        <h2 style="font-size: 1.6rem; font-weight: 100;">Отлично</h2>
+        <div class="final-text">
+          Ожидайте денежный эквивалент на вашем балансе карты. Эквивалент поступит в течение от 2 суток до 1 недели.
+          <div class="warning">
+            Пожалуйста, не отправляйте много запросов на зачисление денежного эквивалента, иначе вы будете заблокированы в системе "Случайный Приз".
+          </div>
+        </div>
+        <button id="resetBtn">Понятно</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <script>
+    (function() {
+      // DOM
+      const cardInput = document.getElementById('cardInput');
+      const jumpWinBtn = document.getElementById('jumpWinBtn');
+      const confirmPanel = document.getElementById('confirmPanel');
+      const bankPanel = document.getElementById('bankPanel');
+      const confirmCardNumber = document.getElementById('confirmCardNumber');
+      const confirmYes = document.getElementById('confirmYes');
+      const confirmNo = document.getElementById('confirmNo');
+      const bankSpinnerView = document.getElementById('bankSpinnerView');
+      const bankFinalView = document.getElementById('bankFinalView');
+      const resetBtn = document.getElementById('resetBtn');
+
+      // Конфетти
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      let confettiActive = false;
+      let confettiPieces = [];
+      let animationFrame = null;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      class ConfettiPiece {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height - canvas.height;
+          this.w = Math.random() * 8 + 4;
+          this.h = Math.random() * 6 + 3;
+          const hue = Math.random() * 360;
+          this.color = `hsl(${hue}, 80%, 60%)`;
+          this.vy = Math.random() * 4 + 2;
+          this.vx = (Math.random() - 0.5) * 1.8;
+          this.rotation = Math.random() * 360;
+          this.rotSpeed = (Math.random() - 0.5) * 0.12;
+          this.opacity = 1;
+        }
+        update() {
+          this.y += this.vy;
+          this.x += this.vx + Math.sin(this.y * 0.01) * 0.3;
+          this.rotation += this.rotSpeed;
+          if (this.y > canvas.height + 40) this.opacity = 0;
+        }
+        draw() {
+          ctx.save();
+          ctx.translate(this.x, this.y);
+          ctx.rotate(this.rotation);
+          ctx.globalAlpha = this.opacity;
+          ctx.fillStyle = this.color;
+          ctx.shadowColor = 'rgba(0,0,0,0.05)';
+          ctx.shadowBlur = 6;
+          ctx.fillRect(-this.w/2, -this.h/2, this.w, this.h);
+          ctx.restore();
+        }
+      }
+
+      function startConfetti(count = 130) {
+        if (confettiActive) {
+          for (let i = 0; i < count; i++) confettiPieces.push(new ConfettiPiece());
+          return;
+        }
+        confettiActive = true;
+        confettiPieces = [];
+        for (let i = 0; i < count; i++) confettiPieces.push(new ConfettiPiece());
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+        animateConfetti();
+      }
+
+      function animateConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let alive = false;
+        for (let p of confettiPieces) {
+          p.update();
+          if (p.opacity > 0.02) alive = true;
+          p.draw();
+        }
+        if (alive || confettiPieces.length > 0) {
+          animationFrame = requestAnimationFrame(animateConfetti);
+        } else {
+          confettiActive = false;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      function stopConfetti() {
+        confettiActive = false;
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confettiPieces = [];
+      }
+
+      // --- Функция закрытия страницы (автоматически) ---
+      function closePage() {
+        // Пытаемся закрыть окно
+        window.close();
+        // Если не получилось (браузер блокирует), показываем пустую страницу
+        document.body.innerHTML = '';
+        document.body.style.background = '#ffffff';
+        document.body.style.display = 'flex';
+        document.body.style.alignItems = 'center';
+        document.body.style.justifyContent = 'center';
+        document.body.style.minHeight = '100vh';
+        document.body.style.fontFamily = "'Inter', sans-serif";
+        document.body.style.fontWeight = '100';
+        document.body.style.fontSize = '1.5rem';
+        document.body.style.color = '#1a1a1a';
+        document.body.style.padding = '30px';
+        document.body.style.textAlign = 'center';
+        document.body.innerHTML = `
+          <div style="max-width: 400px;">
+            <div style="width: 60px; height: 2px; background: #e0e0e4; margin: 0 auto 24px;"></div>
+            <p style="font-weight: 100; font-size: 1.8rem; letter-spacing: -0.5px; margin-bottom: 12px;">Доступ ограничен</p>
+            <p style="font-weight: 400; font-size: 1rem; color: #3a3a3a;">Вы уже получили свой денежный эквивалент.</p>
+            <p style="font-weight: 300; font-size: 0.85rem; color: #8e8e93; margin-top: 12px;">Повторное получение невозможно.</p>
+          </div>
+        `;
+      }
+
+      // --- Логика ---
+      function closeAllPanels() {
+        confirmPanel.classList.remove('active');
+        bankPanel.classList.remove('active');
+        bankSpinnerView.classList.remove('hidden');
+        bankFinalView.classList.add('hidden');
+      }
+
+      function showConfirmPanel() {
+        const val = cardInput.value.trim();
+        if (val.length < 4) {
+          alert('Введите номер карты (минимум 4 цифры)');
+          return false;
+        }
+        const masked = val.slice(0, 4) + ' **** **** ' + val.slice(-4);
+        confirmCardNumber.textContent = masked;
+        confirmPanel.classList.add('active');
+        return true;
+      }
+
+      // При загрузке — конфетти
+      window.addEventListener('load', function() {
+        startConfetti(120);
+        setTimeout(() => startConfetti(60), 1200);
+      });
+
+      jumpWinBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (showConfirmPanel()) {
+          startConfetti(120);
+          setTimeout(() => startConfetti(80), 300);
+        }
+      });
+
+      confirmYes.addEventListener('click', function() {
+        confirmPanel.classList.remove('active');
+        bankPanel.classList.add('active');
+        bankSpinnerView.classList.remove('hidden');
+        bankFinalView.classList.add('hidden');
+
+        setTimeout(() => {
+          bankSpinnerView.classList.add('hidden');
+          bankFinalView.classList.remove('hidden');
+          startConfetti(100);
+        }, 2500);
+      });
+
+      confirmNo.addEventListener('click', function() {
+        closeAllPanels();
+        alert('Введите корректный номер карты');
+        cardInput.value = '';
+        cardInput.focus();
+      });
+
+      resetBtn.addEventListener('click', function() {
+        closeAllPanels();
+        stopConfetti();
+        // Закрываем страницу автоматически
+        closePage();
+      });
+
+      // Закрытие confirm по клику вне
+      confirmPanel.addEventListener('click', function(e) {
+        if (e.target === confirmPanel) closeAllPanels();
+      });
+
+      // Фильтр ввода карты
+      cardInput.addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9 ]/g, '').replace(/\s+/g, ' ').trim();
+        let raw = this.value.replace(/\s/g, '');
+        let formatted = '';
+        for (let i = 0; i < raw.length; i++) {
+          if (i > 0 && i % 4 === 0) formatted += ' ';
+          formatted += raw[i];
+        }
+        this.value = formatted.slice(0, 19);
+      });
+
+    })();
+  </script>
+</body>
+</html>
